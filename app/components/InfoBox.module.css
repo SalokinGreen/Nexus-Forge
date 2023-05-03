@@ -1,0 +1,30 @@
+.infobox {
+    width: 30%;
+    padding: 1rem;
+    margin: 1rem;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    background-color: #000000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    float: right;
+  }
+  
+  .infobox th,
+  .infobox td {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .infobox th {
+    font-weight: bold;
+  }
+  
+  /* Media query for mobile devices */
+  @media (max-width: 768px) {
+    .infobox {
+      float: none;
+      width: 100%;
+      margin: 1rem auto;
+    }
+  }

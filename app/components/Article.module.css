@@ -1,0 +1,35 @@
+.article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 250px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+  /* border:rgb(255, 255, 255) solid 1px; */
+}
+
+.article:hover {
+  transform: translateY(-0.5rem) scale(1.03);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  opacity: 1;
+}
+
+.image {
+  border-radius: 5px;
+}
+
+.article h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(255, 255, 255);
+
+}

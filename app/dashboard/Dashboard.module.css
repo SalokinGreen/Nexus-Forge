@@ -1,0 +1,101 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #0a6100;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .logoutButton {
+    background-color: #ffffff;
+    color: #0070f3;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .article {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .articleTitle {
+    margin-bottom: 0.5rem;
+    color: black;
+
+  }
+  
+  .articleAuthor,
+  .articleDate {
+    font-size: 0.9rem;
+    color: #666666;
+  }
+  
+.filters {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.searchInput,
+.typeSelect {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.typeSelect {
+  width: 200px;
+}
+
+
+.createArticleSection {
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.templateButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.templateButton {
+  background-color: #0070f3;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.templateButton:hover {
+  background-color: #0055d4;
+}

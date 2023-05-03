@@ -1,0 +1,76 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    height: 100vh;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .author {
+    font-size: 1.125rem;
+    color: #666666;
+    margin-bottom: 1rem;
+  }
+  .content {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  .imageContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .articleImage {
+    position: relative;
+  }
+  .closeButton {
+    background-color: #f1f1f1;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+  }
+  .firstImage {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  
+  .firstImage:hover .overlay {
+    opacity: 1;
+  }
+  
+  .overlayText {
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
