@@ -14,15 +14,15 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [x] AI memory
 - [x] Share your world
 - [x] Mardown support
-- [] Create, edit, and delete category
-- [] Search
-- [] Writer management
-- [] Manage images
-- [] Manage files
-- [] AI settings
-- [] Private entries
-- [] Complete navbar
-- [] Hosting instructions
+- [ ] Create, edit, and delete category
+- [ ] Search
+- [ ] Writer management
+- [ ] Manage images
+- [ ] Manage files
+- [ ] AI settings
+- [ ] Private entries
+- [ ] Complete navbar
+- [ ] Hosting instructions
 
 # Hosting
 
