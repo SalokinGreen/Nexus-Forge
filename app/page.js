@@ -9,12 +9,8 @@ import supabase from "./lib/supabase";
 import Navbar from "./components/Navbar";
 
 export default function Home() {
-  const [favoriteArticles, setFavoriteArticles] = useState([
-    { id: 1, title: "test", content: "test", images: [] },
-  ]);
-  const [newArticles, setNewArticles] = useState([
-    { id: 2, title: "test", content: "test", images: [] },
-  ]);
+  const [favoriteArticles, setFavoriteArticles] = useState([]);
+  const [newArticles, setNewArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,8 +28,6 @@ export default function Home() {
 
       setFavoriteArticles(favoriteArticles);
       setNewArticles(newArticles);
-      console.log("favorite:", favoriteArticles);
-      console.log("new:", newArticles);
       setLoading(false);
     }
 

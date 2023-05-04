@@ -96,8 +96,16 @@ export default function ContextBuilding(content, memory, extra, type, title) {
       }
     }
   });
+  // remove last newline from context
+  function removeLastNewLine(str) {
+    if (str.endsWith("\n")) {
+      return str.slice(0, -1);
+    }
+    return str;
+  }
   // add title to context
-  context = memoryString + context;
+
+  context = memoryString + removeLastNewLine(context);
   // remove markdown from context
   context = removeMarkdown(context);
   // return context
