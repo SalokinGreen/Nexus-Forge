@@ -2,14 +2,12 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import React from "react";
-import Link from "next/link";
-import Select from "react-select";
-import styles from "./ArticlePage.module.css";
+import styles from "../../Styles/ArticlePage.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CustomRenderer from "../components/CustomRenderer";
 import supabase from "app/lib/supabase";
-import Infobox from "../components/InfoBox";
+import Infobox from "../components/Article/InfoBox";
 import removeMarkdown from "../lib/removeMarkdown";
 import Navbar from "../components/Navbar";
 import remarkGfm from "remark-gfm";

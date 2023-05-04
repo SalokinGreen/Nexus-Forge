@@ -1,0 +1,72 @@
+.infobox {
+  width: 30%;
+  padding: 1rem;
+  margin: 1rem;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  background-color: #000000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  float: right;
+}
+
+.infobox th,
+.infobox td {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  text-align: left;
+  /* center text */
+  text-align: center;
+}
+
+.infobox th {
+  font-weight: bold;
+}
+
+/* Add this selector to set a maximum width and height for the image */
+.infobox .image {
+  max-width: 100%;
+  max-height: 200px; /* Adjust this value according to your desired maximum height */
+  overflow: hidden;
+}
+
+.infobox img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.infobox .expanded {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  max-height: 1.2em;
+  white-space: nowrap;
+}
+
+.infobox .expanded::after {
+  /* content: ""; */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  padding-left: 4px;
+}
+
+.infobox .expanded.open {
+  white-space: normal;
+  max-height: none;
+}
+
+.infobox .expanded.open::after {
+  display: none;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .infobox {
+    float: none;
+    width: 100%;
+    margin: 1rem auto;
+  }
+}

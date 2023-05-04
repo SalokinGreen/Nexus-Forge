@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import styles from "./Template.module.css";
+import styles from "../../../Styles/Template.module.css";
 import {
   AiFillDelete,
   AiFillPlusSquare,
@@ -78,14 +78,30 @@ function Template({ formData, setTemplateData }) {
                         updateData(item.id, { ...item, label: e.target.value })
                       }
                     />
-                    <input
-                      type="text"
-                      placeholder="Value"
-                      value={item.value}
-                      onChange={(e) =>
-                        updateData(item.id, { ...item, value: e.target.value })
-                      }
-                    />
+                    {item.type === "info" ? (
+                      <input
+                        type="text"
+                        placeholder="Value"
+                        value={item.value}
+                        onChange={(e) =>
+                          updateData(item.id, {
+                            ...item,
+                            value: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <textarea
+                        placeholder="Value"
+                        value={item.value}
+                        onChange={(e) =>
+                          updateData(item.id, {
+                            ...item,
+                            value: e.target.value,
+                          })
+                        }
+                      />
+                    )}
                   </>
                 )}
                 {item.type === "header" && (

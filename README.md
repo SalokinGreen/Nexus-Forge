@@ -1,6 +1,6 @@
 # Introduction
 
-This project is an response to the lack of open source world-building tools. This is supposed to help world-builder to create, manage, and share their world. This project is still in its early stage, so there are still a lot of features that are not implemented yet.
+This project is an response to the lack of open source world-building tools. This is supposed to help world-builder to create, manage, and share their worlds. This project is still in its early stage, so there are still a lot of features that are not implemented yet.
 
 ## AI
 
@@ -14,6 +14,7 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [x] AI memory
 - [x] Share your world
 - [x] Mardown support
+- [x] Dashboard
 - [ ] Create, edit, and delete category
 - [ ] Search
 - [ ] Writer management
@@ -23,6 +24,7 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [ ] Private entries
 - [ ] Complete navbar
 - [ ] Hosting instructions
+- [ ] Generated writing prompts
 
 # Hosting
 

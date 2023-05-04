@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "../Styles/page.module.css";
 import Head from "next/head";
-import ArticlePreview from "./components/ArticlesPreview";
+import ArticlePreview from "./components/Article/ArticlesPreview";
 import { useState, useEffect } from "react";
 import supabase from "./lib/supabase";
 import Navbar from "./components/Navbar";

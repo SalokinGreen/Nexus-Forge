@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { signInWithEmail } from "../lib/auth";
 import { useRouter } from "next/navigation";
-import styles from "./Login.module.css";
+import styles from "../../Styles/Login.module.css";
 import Navbar from "../components/Navbar";
 
 export default function LoginPage() {

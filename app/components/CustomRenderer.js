@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Select from "react-select";
 import { useEffect, useState } from "react";
-import styles from "./custom-renderer.module.css";
+import styles from "../../Styles/custom-renderer.module.css";
 export default function CustomRenderer({ children, allArticles }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownOptions, setDropdownOptions] = useState([]);

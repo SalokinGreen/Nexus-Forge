@@ -1,5 +1,5 @@
 "use client";
-import styles from "./Dashboard.module.css";
+import styles from "../../Styles/Dashboard.module.css";
 import { useState, useEffect } from "react";
 import { signOut } from "../lib/auth";
 import { useRouter } from "next/navigation";
