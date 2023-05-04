@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import supabase from "../lib/supabase";
@@ -7,7 +7,20 @@ import styles from "./Write.module.css";
 import withAuth from "../lib/withAuth";
 import Template from "../components/Template";
 import Image from "next/image";
-
+import axios from "axios";
+import remarkGfm from "remark-gfm";
+import Navbar from "../components/Navbar";
+// icons
+import {
+  AiFillDelete,
+  AiFillSave,
+  AiFillEye,
+  AiFillPlaySquare,
+  AiFillFileImage,
+  AiFillEyeInvisible,
+  AiFillCaretDown,
+  AiFillCaretUp,
+} from "react-icons/ai";
 function Write() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -15,8 +28,8 @@ function Write() {
   const [content, setContent] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [newKeyword, setNewKeyword] = useState("");
-
-  const [templateData, setTemplateData] = useState({});
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [templateData, setTemplateData] = useState([{ label: "", value: "" }]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const articleId = searchParams.get("id");
@@ -26,6 +39,12 @@ function Write() {
   const [uploadedImage, setUploadedImage] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [toDelete, setToDelete] = useState([]);
+  const [showMemory, setShowMemory] = useState(false);
+  const [memory, setMemory] = useState("");
+  const memoryEditableRef = useRef(null);
+  const onBlurMemory = () => {
+    setMemory(memoryEditableRef.current.innerText);
+  };
 
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -40,6 +59,12 @@ function Write() {
       setSelectedFiles([]);
     }
   }, [articleId]);
+
+  const contentEditableRef = useRef(null);
+
+  const onBlur = (e) => {
+    setContent(contentEditableRef.current.innerText);
+  };
 
   async function fetchArticle() {
     const { data, error } = await supabase
@@ -60,6 +85,8 @@ function Write() {
     setTemplateData(data.form);
     setUploadedImage(data.images);
     setKeywords(data.keywords);
+    setMemory(data.memory);
+    console.log("the original data:", data.form);
     // setSelectedFiles(data.images.map((imageUrl) => ({ url: imageUrl.url })));
   }
   function sanitizeFileName(fileName) {
@@ -118,6 +145,7 @@ function Write() {
         created_at: new Date(),
         images: newImages,
         keywords,
+        memory,
       },
     ]);
 
@@ -139,6 +167,7 @@ function Write() {
         form: templateData,
         images: [...uploadedImage, ...newImages],
         keywords,
+        memory,
       })
       .eq("id", articleId);
 
@@ -175,6 +204,7 @@ function Write() {
   }
 
   function togglePreview() {
+    setContent(contentEditableRef.current.innerText);
     setShowPreview((prevShowPreview) => !prevShowPreview);
   }
 
@@ -236,7 +266,7 @@ function Write() {
               className={styles.deleteImageButton}
               onClick={() => onDelete(index, file.url)}
             >
-              Delete
+              <AiFillDelete />
             </button>
           </div>
         ))}
@@ -259,7 +289,18 @@ function Write() {
   function removeKeyword(index) {
     setKeywords((prevKeywords) => prevKeywords.filter((_, i) => i !== index));
   }
-  function handleKeyPress(e) {
+  function moveCursorToEndAsync(element) {
+    setTimeout(() => {
+      const range = document.createRange();
+      const selection = window.getSelection();
+      range.selectNodeContents(element);
+      range.collapse(false); // Set to false to move the cursor to the end
+      selection.removeAllRanges();
+      selection.addRange(range);
+      element.focus();
+    }, 0);
+  }
+  async function handleKeyPress(e) {
     if (e.key === "Enter" && e.target.className !== styles.textarea) {
       e.preventDefault();
       if (e.target.className === styles.keywordInput) {
@@ -270,12 +311,66 @@ function Write() {
       // if key enter and alt is pressed
       if (e.altKey) {
         e.preventDefault();
+        setContent(contentEditableRef.current.innerText);
         console.log("generate with NAI api");
+        await generate();
+        moveCursorToEndAsync(contentEditableRef.current);
       }
+    } else if (isGenerating && e.target.className === styles.textarea) {
+      // if generating and key is pressed
+      e.preventDefault();
+      console.log("generating");
     }
+  }
+  // clean string from double spaces, newlines with spaces attached, and double newlines
+  function cleanString(string) {
+    const lines = string.split("\n");
+
+    let cleanedLines = lines.map((line) => {
+      if (line.trim() !== "---") {
+        // Remove leading and trailing spaces, and replace multiple spaces with a single space
+        line = line.trim().replace(/\s\s+/g, " ");
+      }
+      return line;
+    });
+
+    // Remove any empty lines that are not around '---'
+    cleanedLines = cleanedLines.filter((line, index, array) => {
+      if (
+        line === "" &&
+        !(
+          (array[index - 1] && array[index - 1].trim() === "---") ||
+          (array[index + 1] && array[index + 1].trim() === "---")
+        )
+      ) {
+        return false;
+      }
+      return true;
+    });
+
+    return cleanedLines.join("\n");
+  }
+
+  async function generate() {
+    // api call to /api/generate
+    setContent(contentEditableRef.current.innerText);
+
+    setIsGenerating(true);
+    const response = await axios.post("/api/generate", {
+      content: contentEditableRef.current.innerText,
+      memory,
+      extra: "",
+      type: "krake",
+      title,
+    });
+    const data = response.data;
+    console.log(data);
+    setContent(cleanString(contentEditableRef.current.innerText + " " + data));
+    setIsGenerating(false);
   }
   return (
     <div className={styles.container}>
+      <Navbar />
       <h1>Title</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -294,107 +389,152 @@ function Write() {
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
         />
-        <h1>Keywords</h1>
-        <div className={styles.keywordsContainer}>
-          {keywords.map((keyword, index) => (
-            <div key={index} className={styles.keyword}>
-              <span>{keyword}</span>
-              <button
-                className={styles.removeKeywordButton}
-                type="button"
-                onClick={() => removeKeyword(index)}
-              >
-                x
-              </button>
+        <div className={styles.fieldsRow}>
+          <div>
+            <h1>Type</h1>
+
+            <select
+              className={styles.selectField}
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              {availableTypes.map((typeOption) => (
+                <option key={typeOption} value={typeOption}>
+                  {typeOption}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={styles.keywordsWrapper}>
+            <h1>Keywords</h1>
+            <input
+              type="text"
+              className={styles.keywordInput}
+              value={newKeyword}
+              onChange={(e) => setNewKeyword(e.target.value)}
+              placeholder="Add keyword"
+              onKeyDown={handleKeyPress}
+            />
+            <button
+              className={styles.addKeywordButton}
+              type="button"
+              onClick={addKeyword}
+              onSubmit={addKeyword}
+            >
+              Add
+            </button>
+            <div className={styles.keywordsContainer}>
+              {keywords.map((keyword, index) => (
+                <div key={index} className={styles.keyword}>
+                  <span>{keyword}</span>
+                  <button
+                    className={styles.removeKeywordButton}
+                    type="button"
+                    onClick={() => removeKeyword(index)}
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
-          <input
-            type="text"
-            className={styles.keywordInput}
-            value={newKeyword}
-            onChange={(e) => setNewKeyword(e.target.value)}
-            placeholder="Add keyword"
-            onKeyDown={handleKeyPress}
-          />
-          <button
-            className={styles.addKeywordButton}
-            type="button"
-            onClick={addKeyword}
-            onSubmit={addKeyword}
-          >
-            Add
-          </button>
+          </div>
         </div>
-        <h1>Type</h1>
-
-        <select
-          className={styles.selectField}
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-        >
-          {availableTypes.map((typeOption) => (
-            <option key={typeOption} value={typeOption}>
-              {typeOption}
-            </option>
-          ))}
-        </select>
         <h1>Content</h1>
-
-        <textarea
-          className={styles.textarea}
-          placeholder="Content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
-
-        <button className={styles.button} onClick={handleSubmit}>
-          {articleId ? "Update" : "Create"}
-        </button>
-        {articleId && (
-          <button className={styles.button} onClick={deleteArticle}>
-            Delete
-          </button>
-        )}
-        <button className={styles.button} type="button" onClick={togglePreview}>
-          {showPreview ? "Hide Preview" : "Show Preview"}
-        </button>
-        {showPreview && (
-          <div className={styles.previewContainer}>
-            <ReactMarkdown className={styles.previewContent}>
-              {content}
-            </ReactMarkdown>
-            <button className={styles.closeButton} onClick={togglePreview}>
-              Close
+        <div style={{ position: "relative" }}>
+          <div
+            className={styles.textarea}
+            placeholder="Content"
+            ref={contentEditableRef}
+            contentEditable="true"
+            onBlur={onBlur}
+            onKeyDown={handleKeyPress}
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+          {isGenerating && (
+            <div className={styles.loadingEffect}>
+              <span>Generating...</span>
+            </div>
+          )}
+        </div>
+        <div className={styles.buttonsArea}>
+          <div className={styles.buttonsPart}>
+            <button className={styles.button} onClick={handleSubmit}>
+              <AiFillSave />
+            </button>
+            {articleId && (
+              <button className={styles.buttonDelete} onClick={deleteArticle}>
+                <AiFillDelete />
+              </button>
+            )}
+            <button
+              className={styles.button}
+              type="button"
+              onClick={togglePreview}
+            >
+              <AiFillEye />
+            </button>
+            {showPreview && (
+              <div className={styles.previewContainer}>
+                <ReactMarkdown
+                  className={styles.previewContent}
+                  remarkPlugins={[remarkGfm]}
+                >
+                  {content}
+                </ReactMarkdown>
+                <button className={styles.closeButton} onClick={togglePreview}>
+                  <AiFillEyeInvisible />
+                </button>
+              </div>
+            )}
+            <div className={styles.uploadContainer}>
+              <label htmlFor="image-upload" className={styles.button}>
+                <AiFillFileImage />
+              </label>
+              <input
+                type="file"
+                id="image-upload"
+                className={styles.uploadInput}
+                accept="image/*"
+                onChange={handleImageUpload}
+                multiple
+              />
+            </div>
+          </div>
+          <div className={styles.buttonsPart}>
+            <button
+              className={styles.button}
+              type="button"
+              onClick={() => generate()}
+            >
+              <AiFillPlaySquare />
             </button>
           </div>
-        )}
+        </div>
       </form>
-      <div className={styles.uploadContainer}>
-        <label htmlFor="image-upload" className={styles.button}>
-          Add Images
-        </label>
-        <input
-          type="file"
-          id="image-upload"
-          className={styles.uploadInput}
-          accept="image/*"
-          onChange={handleImageUpload}
-          multiple
-        />
-      </div>
+
       {selectedFiles.length > 0 && <h2>Selected Images</h2>}
       <ImagePreviews files={selectedFiles} onDelete={handleDeselectImage} />
       {uploadedImage.length > 0 && <h2>Uploaded Images</h2>}
       <ImagePreviews files={uploadedImage} onDelete={handleDeleteImage} />
 
-      <Template
-        type={type}
-        updateTemplateData={setTemplateData}
-        initialData={
-          articleId ? templateData : { currentLocation: "", mother: "" }
-        }
-      />
+      <Template setTemplateData={setTemplateData} formData={templateData} />
+      <div className={styles.memory}>
+        <h1 onClick={() => setShowMemory(!showMemory)}>
+          Memory {showMemory ? <AiFillCaretDown /> : <AiFillCaretUp />}
+        </h1>
+      </div>
+      {showMemory && (
+        <div style={{ position: "relative" }}>
+          <div
+            className={styles.textarea}
+            placeholder="Memory"
+            ref={memoryEditableRef}
+            contentEditable="true"
+            onBlur={onBlurMemory}
+            dangerouslySetInnerHTML={{ __html: memory }}
+          />
+        </div>
+      )}
     </div>
   );
 }

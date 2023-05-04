@@ -14,12 +14,14 @@
     padding: 0.5rem;
     border: 1px solid #ccc;
     text-align: left;
+    /* center text */
+    text-align: center;
   }
   
   .infobox th {
     font-weight: bold;
   }
-  
+
   /* Media query for mobile devices */
   @media (max-width: 768px) {
     .infobox {

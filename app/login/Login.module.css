@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 95vh;
     padding: 0 1rem;
   }
   
@@ -10,9 +10,10 @@
     max-width: 400px;
     width: 100%;
     padding: 2rem;
-    background-color: #ffffff;
+    background-color: #000000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    border: 1px white solid;
   }
   
   .title {

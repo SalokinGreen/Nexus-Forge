@@ -2,17 +2,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #000000;
     padding: 0.5rem 1rem;
     width: 100vw;
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    z-index: 1000; 
   }
   
   .navLink {
     color: #fff;
     text-decoration: none;
     font-size: 1.2rem;
+    cursor: pointer;
   }
   
   .navLink:hover {
-    color: #ddd;
+    color: #008104;
   }

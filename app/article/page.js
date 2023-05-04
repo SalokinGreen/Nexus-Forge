@@ -12,18 +12,14 @@ import supabase from "app/lib/supabase";
 import Infobox from "../components/InfoBox";
 import removeMarkdown from "../lib/removeMarkdown";
 import Navbar from "../components/Navbar";
+import remarkGfm from "remark-gfm";
 const ArticlePage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const [article, setArticle] = useState({ content: "place holder" });
+  const [article, setArticle] = useState({ content: "" });
   const [allArticles, setAllArticles] = useState([]);
   const [isGalleryVisible, setIsGalleryVisible] = useState(false);
-  const infoboxData = [
-    { label: "Weight", value: "50kg" },
-    { label: "Creator", value: "John Doe" },
-    { label: "Location", value: "New York" },
-  ];
 
   useEffect(() => {
     if (id) {
@@ -118,11 +114,17 @@ const ArticlePage = () => {
 
   return (
     <React.Fragment>
-    <Navbar />
       <div className={styles.container}>
+        <Navbar />
         <h1 className={styles.title}>{article.title}</h1>
-        <div className={styles.author}>By {article.author}</div>
-        <Infobox title={article.title} data={infoboxData} />
+        {article.author && (
+          <div className={styles.author}>By {article.author}</div>
+        )}
+        <Infobox
+          title={article.title}
+          data={article.form}
+          allArticles={allArticles}
+        />
         <div className={styles.content}>
           <ReactMarkdown
             className={styles.previewContent}
@@ -138,10 +140,12 @@ const ArticlePage = () => {
                 </li>
               ),
             }}
+            remarkPlugins={[remarkGfm, { singleTilde: false }]}
           >
             {article.content}
           </ReactMarkdown>
         </div>
+        {article.images && <h2>Gallery</h2>}
         {article.images && renderImages(article.images)}
         {/* You can add more elements such as author, date, and images */}
       </div>

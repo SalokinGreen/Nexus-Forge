@@ -3,10 +3,13 @@
     margin: 0 auto;
     padding: 1rem;
     height: 100vh;
+    margin-top: 4rem;
   }
   
   .input, .textarea {
     display: block;
+    background-color: black;
+    color: white;
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
@@ -20,26 +23,54 @@
     resize: vertical;
     min-height: 200px;
   }
-  
+  .buttonsArea{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .buttonsPart {
+    display:flex;
+    gap: 5px;
+  }
   .button {
-    display: block;
-    width: 100%;
+    display: flex;
+    align-items: center; /* center items vertically */
+    justify-content: center; /* center items horizontally */
+    width: 50px;
+    height: 40px;
     padding: 0.75rem;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #187122;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    box-sizing: border-box;
-    margin-right: 1rem;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #187122;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+  }
+  .buttonDelete {
+    display: flex;
+    align-items: center; /* center items vertically */
+    justify-content: center; /* center items horizontally */
+    width: 50px;
+    height: 40px;
+    padding: 0.75rem;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #eb0000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
   }
   
   .button:hover {
     background-color: #1c9a00;
   }
-
+  .buttonDelete:hover {
+    background-color: #ff0000;
+  }
   .previewContainer {
     position: fixed;
     top: 0;
@@ -50,16 +81,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000; /* Add this line */
   }
   
   .previewContent {
-    background-color: #fff;
-    color: black;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
     max-width: 90%;
     max-height: 90%;
     overflow-y: auto;
     padding: 2rem;
     border-radius: 4px;
+    z-index: 1001; /* Add this line */
   }
   
   .closeButton {
@@ -74,15 +107,18 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    z-index: 1002;
   }
   .selectField {
     display: block;
-    width: 100%;
+    width: auto;
     margin-bottom: 1rem;
     padding: 0.5rem;
     font-size: 1rem;
     line-height: 1.5;
     border: 1px solid #ced4da;
+    background-color: black;
+    color: white;
     border-radius: 0.25rem;
   }
   .imageContainer {
@@ -161,13 +197,15 @@
   .keywordInput {
     padding: 4px 8px;
     border: 1px solid #ccc;
+    background-color: #000000;
+    color: white;
     border-radius: 4px;
     outline: none;
     min-width: 100px;
   }
   
   .keywordInput:focus {
-    border-color: #0070f3;
+    border-color: #00810b;
   }
   
   .removeKeywordButton {
@@ -179,7 +217,7 @@
   }
   
   .addKeywordButton {
-    background-color: #0070f3;
+    background-color: #187122;
     color: white;
     border: none;
     border-radius: 4px;
@@ -190,5 +228,101 @@
   }
   
   .addKeywordButton:hover {
-    background-color: #0059c9;
+    background-color: #1c9a00;
+  }
+  .fieldsRow {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    justify-content: space-between; 
+  }
+  .keywordsWrapper {
+    text-align: right;
+  }
+  .loadingEffect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .loadingEffect span {
+    font-size: 2rem;
+    color: #ffffff;
+  }
+  .textarea {
+    min-height: 300px;
+    height: 300px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    resize: vertical;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .textareaMemory {
+    min-height: 150px;
+    height: 150px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    resize: vertical;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .textarea:focus {
+    border-color: #00ff2a;
+    box-shadow: 0 0 0 1px #00810b;
+  }
+  .textarea::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .textarea::-webkit-scrollbar-thumb {
+    background-color: #00810b;
+    border-radius: 4px;
+  }
+  
+  .textarea::-webkit-scrollbar-track {
+    background-color: #000000;
+    border-radius: 4px;
+  }
+  
+  .textarea:hover::-webkit-scrollbar-thumb {
+    background-color: #00810b;
+  }
+  
+  /* For Firefox */
+  .textarea {
+    scrollbar-width: thin;
+    scrollbar-color: #00810b #000000;
+  }
+  
+  .textarea:hover {
+    scrollbar-color: #00810b #000000;
+  }
+  .memory {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+
+  }
+  .memory h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }

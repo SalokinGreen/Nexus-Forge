@@ -83,9 +83,13 @@ export default function CustomRenderer({ children, allArticles }) {
       });
     }
 
-    return React.cloneElement(child, {
-      children: child.props.children.map(processChildNode),
-    });
+    try {
+      return React.cloneElement(child, {
+        children: child.props.children.map(processChildNode),
+      });
+    } catch (error) {
+      return child;
+    }
   };
 
   return (

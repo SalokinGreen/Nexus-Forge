@@ -39,7 +39,24 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 }
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
+*::-webkit-scrollbar-thumb {
+  background-color: #00810b;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #000000;
+  border-radius: 4px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background-color: #00810b;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
