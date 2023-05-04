@@ -9,8 +9,12 @@ import supabase from "./lib/supabase";
 import Navbar from "./components/Navbar";
 
 export default function Home() {
-  const [favoriteArticles, setFavoriteArticles] = useState([]);
-  const [newArticles, setNewArticles] = useState([]);
+  const [favoriteArticles, setFavoriteArticles] = useState([
+    { id: 1, title: "test", content: "test", images: [] },
+  ]);
+  const [newArticles, setNewArticles] = useState([
+    { id: 2, title: "test", content: "test", images: [] },
+  ]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,32 +60,30 @@ export default function Home() {
         <section className={styles.articlesSection}>
           <h2>Favorite Articles</h2>
           <div className={styles.articles}>
-            {!loading &&
-              favoriteArticles.map((article) => (
-                <ArticlePreview
-                  key={article.id}
-                  id={article.id}
-                  title={article.title}
-                  content={article.content}
-                  images={article.images}
-                />
-              ))}
+            {favoriteArticles.map((article) => (
+              <ArticlePreview
+                key={article.id}
+                id={article.id}
+                title={article.title}
+                content={article.content}
+                images={article.images}
+              />
+            ))}
           </div>
         </section>
 
         <section className={styles.articlesSection}>
           <h2>New Articles</h2>
           <div className={styles.articles}>
-            {!loading &&
-              newArticles.map((article) => (
-                <ArticlePreview
-                  key={article.id}
-                  id={article.id}
-                  title={article.title}
-                  content={article.content}
-                  images={article.images}
-                />
-              ))}
+            {newArticles.map((article) => (
+              <ArticlePreview
+                key={article.id}
+                id={article.id}
+                title={article.title}
+                content={article.content}
+                images={article.images}
+              />
+            ))}
           </div>
         </section>
       </main>
