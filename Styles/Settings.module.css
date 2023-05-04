@@ -1,0 +1,59 @@
+.container {
+    position: relative;
+  }
+  
+  .settingsButton {
+    cursor: pointer;
+    background-color: #187122;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    outline: none;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background-color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 16px;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  .menuItem {
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .menuItem:hover {
+    background-color: #187122;
+  }
+  
+  .closeButton {
+    cursor: pointer;
+    background-color: #980000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    outline: none;
+    margin-top: 16px;
+  }
+  
+  .closeButton:hover {
+    background-color: #ff0000;
+  }

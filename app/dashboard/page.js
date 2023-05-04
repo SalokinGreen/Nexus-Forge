@@ -5,7 +5,7 @@ import { signOut } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import supabase from "../lib/supabase";
 import withAuth from "../lib/withAuth";
-
+import Settings from "../components/Dashboard/Settings";
 function Dashboard() {
   const [articles, setArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,6 +61,7 @@ function Dashboard() {
     <div className={styles.dashboard}>
       <nav className={styles.navbar}>
         <div className={styles.logo}>Dashboard</div>
+        <Settings />
         <button className={styles.logoutButton} onClick={handleLogout}>
           Logout
         </button>
