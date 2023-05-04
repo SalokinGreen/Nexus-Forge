@@ -56,7 +56,7 @@ export default function Home() {
         <section className={styles.articlesSection}>
           <h2>Favorite Articles</h2>
           <div className={styles.articles}>
-            {newArticles.length > 0 &&
+            {!loading &&
               favoriteArticles.map((article) => (
                 <ArticlePreview
                   key={article.id}
@@ -72,7 +72,7 @@ export default function Home() {
         <section className={styles.articlesSection}>
           <h2>New Articles</h2>
           <div className={styles.articles}>
-            {newArticles.length > 0 &&
+            {!loading &&
               newArticles.map((article) => (
                 <ArticlePreview
                   key={article.id}
