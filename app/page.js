@@ -56,36 +56,39 @@ export default function Home() {
         <p className={styles.description}>
           Explore, create, and share your own worlds and stories!
         </p>
-        {!loading && <>
-        <section className={styles.articlesSection}>
-          <h2>Favorite Articles</h2>
-          <div className={styles.articles}>
-            {favoriteArticles.map((article) => (
-              <ArticlePreview
-                key={article.id}
-                id={article.id}
-                title={article.title}
-                content={article.content}
-                images={article.images}
-              />
-            ))}
-          </div>
-        </section>
+        {!loading && (
+          <>
+            <section className={styles.articlesSection}>
+              <h2>Favorite Articles</h2>
+              <div className={styles.articles}>
+                {favoriteArticles.map((article) => (
+                  <ArticlePreview
+                    key={article.id}
+                    id={article.id}
+                    title={article.title}
+                    content={article.content}
+                    images={article.images}
+                  />
+                ))}
+              </div>
+            </section>
 
-        <section className={styles.articlesSection}>
-          <h2>New Articles</h2>
-          <div className={styles.articles}>
-            {newArticles.map((article) => (
-              <ArticlePreview
-                key={article.id}
-                id={article.id}
-                title={article.title}
-                content={article.content}
-                images={article.images}
-              />
-            ))}
-          </div>
-        </section></>}
+            <section className={styles.articlesSection}>
+              <h2>New Articles</h2>
+              <div className={styles.articles}>
+                {newArticles.map((article) => (
+                  <ArticlePreview
+                    key={article.id}
+                    id={article.id}
+                    title={article.title}
+                    content={article.content}
+                    images={article.images}
+                  />
+                ))}
+              </div>
+            </section>
+          </>
+        )}
       </main>
     </div>
   );
