@@ -32,6 +32,8 @@ export default function Home() {
 
       setFavoriteArticles(favoriteArticles);
       setNewArticles(newArticles);
+      console.log("favorite:", favoriteArticles);
+      console.log("new:", newArticles);
       setLoading(false);
     }
 
