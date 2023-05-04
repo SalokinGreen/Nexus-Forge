@@ -33,3 +33,14 @@ This app requires an [Supabase](https://supabase.com/) account. You can host it 
 ## Instructions
 
 Here will be the instructions how to set up the app on [Supabase](https://supabase.com/) and [Vercel](https://vercel.com/). Easy for anyone to follow.
+
+### Vercel
+
+1. Choose "use third party repository"
+2. Enter the repository URL: https://github.com/SalokinGreen/Nexus-Forge.git
+3. Enter the environment variables
+   ![Environment variables](https://prnt.sc/BzJEDjxYcHuA)
+   NEXT_PUBLIC_SUPABASE_URL = your supabase url
+   NEXT_PUBLIC_SUPABASE_URL_IMG = your supabase url without the "https://"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY = your supabase anon key
+4. Enjoy

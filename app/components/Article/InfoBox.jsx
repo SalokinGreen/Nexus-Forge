@@ -52,7 +52,30 @@ const Infobox = ({ data, allArticles }) => {
                         ) : (
                           <AiFillCaretUp />
                         )}
-                        <ReactMarkdown>{item.value}</ReactMarkdown>
+                        <ReactMarkdown
+                          className={styles.previewContent}
+                          remarkPlugins={[remarkGfm]}
+                          components={{
+                            p: (props) => (
+                              <p>
+                                <CustomRenderer
+                                  {...props}
+                                  allArticles={allArticles}
+                                />
+                              </p>
+                            ),
+                            li: (props) => (
+                              <li>
+                                <CustomRenderer
+                                  {...props}
+                                  allArticles={allArticles}
+                                />
+                              </li>
+                            ),
+                          }}
+                        >
+                          {item.value}
+                        </ReactMarkdown>
                       </div>
                     ) : (
                       <ReactMarkdown

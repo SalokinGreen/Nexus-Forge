@@ -356,13 +356,19 @@ function Write() {
     setContent(contentEditableRef.current.innerText);
 
     setIsGenerating(true);
-    const response = await axios.post("/api/generate", {
-      content: contentEditableRef.current.innerText,
-      memory,
-      extra: "",
-      type: "krake",
-      title,
-    });
+    const response = await axios
+      .post("/api/generate", {
+        content: contentEditableRef.current.innerText,
+        memory,
+        extra: "",
+        type: "krake",
+        title,
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsGenerating(false);
+        return null;
+      });
     const data = response.data;
     console.log(data);
     setContent(cleanString(contentEditableRef.current.innerText + " " + data));
