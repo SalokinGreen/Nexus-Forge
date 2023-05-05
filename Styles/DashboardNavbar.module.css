@@ -15,6 +15,10 @@
   .logo {
     font-size: 24px;
     font-weight: bold;
+    cursor: pointer;
+  }
+  .logo:hover {
+    color: #187122;
   }
   
   .optionsButton {

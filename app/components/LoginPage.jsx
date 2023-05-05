@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import { signInWithEmail } from "../lib/auth";
 import { useRouter } from "next/navigation";
 import styles from "../../Styles/Login.module.css";
-import Navbar from "../components/Navbar";
+import Navbar from "./Navbar";
+import { useSupabase } from "../supabase-provider";
+import { createClient } from "@supabase/supabase-js";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,18 +13,23 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
+  const { supabase } = useSupabase();
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    const { data: user, error } = await signInWithEmail(email, password);
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
     setLoading(false);
 
-    if (user) {
-      router.push("/dashboard");
+    if (data) {
+      console.log("it works");
+      console.log(data);
     } else {
-      setError(error.message);
+      setError("error:", error.message);
     }
   }
 

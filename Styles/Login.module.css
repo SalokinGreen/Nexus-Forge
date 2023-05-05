@@ -38,7 +38,7 @@
     padding: 0.75rem;
     font-size: 16px;
     color: #ffffff;
-    background-color: #0070f3;
+    background-color: #017805;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -47,7 +47,7 @@
   }
   
   .button:hover {
-    background-color: #0055d4;
+    background-color: #00820f;
   }
   
   .error {

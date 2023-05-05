@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@justfork/rehype-autolink-headings": "^5.1.1",
+    "@supabase/auth-helpers-nextjs": "^0.6.1",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/auth-ui-react": "^0.3.6",
+    "@supabase/auth-ui-shared": "^0.1.4",
     "@supabase/supabase-js": "^2.21.0",
     "axios": "^1.4.0",
     "encoding": "^0.1.13",

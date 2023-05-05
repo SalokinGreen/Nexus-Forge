@@ -4,12 +4,15 @@ import { useRouter } from "next/navigation";
 import { signOut } from "../../lib/auth";
 import Settings from "./Settings";
 import getNaiAccessToken from "@/utils/getNaiAccessToken";
+import { useSupabase } from "@/app/supabase-provider";
 import NovelaiModal from "./NovelaiModal";
 const DashboardNavbar = () => {
   const router = useRouter();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { supabase } = useSupabase();
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -33,12 +36,16 @@ const DashboardNavbar = () => {
   }, []);
 
   async function handleLogout() {
-    await signOut();
-    router.push("/login");
+    const { error } = await supabase.auth.signOut();
+    return error ? console.log(error.message) : null;
   }
   // function to move to /dashboard
   const handleDashboard = () => {
     router.push("/dashboard");
+  };
+  // function to move to /
+  const handleStartPage = () => {
+    router.push("/");
   };
 
   const toggleDropdown = () => {
@@ -76,7 +83,9 @@ const DashboardNavbar = () => {
               <div className={styles.menuItem} onClick={openModal}>
                 NovelAI
               </div>
-              <div className={styles.menuItem}>Option 3</div>
+              <div className={styles.menuItem} onClick={handleStartPage}>
+                Go to start page
+              </div>
             </div>
           )}
         </div>

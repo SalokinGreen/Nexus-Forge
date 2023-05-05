@@ -5,13 +5,15 @@ import styles from "../Styles/page.module.css";
 import Head from "next/head";
 import ArticlePreview from "./components/Article/ArticlesPreview";
 import { useState, useEffect } from "react";
-import supabase from "./lib/supabase";
+// import supabase from "./lib/supabase";
 import Navbar from "./components/Navbar";
+import { useSupabase } from "./supabase-provider";
 
 export default function Home() {
   const [favoriteArticles, setFavoriteArticles] = useState([]);
   const [newArticles, setNewArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { supabase } = useSupabase();
 
   useEffect(() => {
     async function fetchArticles() {

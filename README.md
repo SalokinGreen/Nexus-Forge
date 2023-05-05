@@ -15,6 +15,7 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [x] Share your world
 - [x] Mardown support
 - [x] Dashboard
+- [x] Get NovelAI access key
 - [ ] Create, edit, and delete category
 - [ ] Search
 - [ ] Writer management

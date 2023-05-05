@@ -6,12 +6,13 @@ import styles from "../../Styles/ArticlePage.module.css";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CustomRenderer from "../components/CustomRenderer";
-import supabase from "app/lib/supabase";
+import { useSupabase } from "../supabase-provider";
 import Infobox from "../components/Article/InfoBox";
 import removeMarkdown from "../lib/removeMarkdown";
 import Navbar from "../components/Navbar";
 import remarkGfm from "remark-gfm";
 const ArticlePage = () => {
+  const { supabase } = useSupabase();
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");

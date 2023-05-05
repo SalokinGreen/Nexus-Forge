@@ -1,4 +1,5 @@
 .dashboard {
+  padding-top: 64px; /* Add this line */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -98,4 +99,21 @@
 
 .templateButton:hover {
   background-color: #0055d4;
+}
+.createButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #187122;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+}
+.createButton:hover {
+  background-color: #000000;
+  color: #187122;
 }

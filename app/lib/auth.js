@@ -19,19 +19,26 @@ export async function signUpWithEmail(email, password) {
 }
 
 export async function signOut() {
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
+  return error ? { error } : { success: true };
+  // await supabase.auth.signOut();
 }
 
 export async function getSession() {
-  return supabase.auth.getSession();
+  const { data, error } = await supabase.auth.getSession();
+  console.log("session:", data);
+  return { data };
 }
 
 export async function getUser() {
-  try {
-    return ({
-      data: { user },
-    } = await supabase.auth.getUser());
-  } catch (error) {
-    return null;
+  const data = await supabase.auth.getUser();
+  const user = data.data.user;
+  console.log("data:", data);
+  console.log("user:", user);
+
+  if (user) {
+    console.log("give data");
+    return user;
   }
+  return null;
 }
