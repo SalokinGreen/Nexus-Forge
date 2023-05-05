@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Settings from "../components/Dashboard/Settings";
 import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 import { useSupabase } from "../supabase-provider";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { ImHammer2 } from "react-icons/im";
 import LoginPage from "../components/LoginPage";
 function Dashboard() {

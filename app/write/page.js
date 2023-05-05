@@ -9,7 +9,6 @@ import Template from "../components/Write/Template";
 import Image from "next/image";
 import axios from "axios";
 import remarkGfm from "remark-gfm";
-import Navbar from "../components/Navbar";
 import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 // icons
 import {
@@ -45,7 +44,9 @@ function Write() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [toDelete, setToDelete] = useState([]);
   const [showMemory, setShowMemory] = useState(false);
-  const [memory, setMemory] = useState("");
+  const [memory, setMemory] = useState(
+    "[ Tags: article, wiki, content; Genre: world-building ]\n***\n"
+  );
   const [favorite, setFavorite] = useState(false);
   const memoryEditableRef = useRef(null);
   const onBlurMemory = () => {

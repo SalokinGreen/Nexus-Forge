@@ -104,10 +104,11 @@ export default function ContextBuilding(content, memory, extra, type, title) {
     return str;
   }
   // add title to context
-
-  context = memoryString + removeLastNewLine(context);
   // remove markdown from context
+  context = removeLastNewLine(context);
   context = removeMarkdown(context);
+  context = memoryString + context;
+
   // return context
   console.log(context);
   return context;
