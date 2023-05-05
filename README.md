@@ -16,6 +16,7 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [x] Mardown support
 - [x] Dashboard
 - [x] Get NovelAI access key
+- [x] AI assistant
 - [ ] Create, edit, and delete category
 - [ ] Search
 - [ ] Writer management
@@ -44,3 +45,43 @@ Here will be the instructions how to set up the app on [Supabase](https://supaba
    NEXT_PUBLIC_SUPABASE_URL_IMG = your supabase url without the "https://"
    NEXT_PUBLIC_SUPABASE_ANON_KEY = your supabase anon key
 4. Enjoy
+
+# AI
+
+Need help world-building? You can use AI to help you. With the powerful AI models from [NovelAI](https://www.novelai.net), you can generate your entry with AI. You can also use the AI to help you write your entry. You can also use the AI to generate writing prompts. And you can chat with the AI to help you with your world-building.
+
+### NAI Access
+
+You need a NovelAI sub to use the AI. You can get it [here](https://www.novelai.net/). Then just log in with your NAI data, and you're good to go.
+
+## AI Generations
+
+You don't know what to write? Just hit generate and you the AI takes over.
+
+### AI Memory
+
+Put your world-building data into the AI memory, and the AI will use it to generate your entry. It will always remember what's in your memory.
+
+## AI Companions
+
+You can chat with many different AI assistants to help you with your world-building. Ask it questions, and it will answer them.
+
+### Master Wong
+
+An ancient sage who knows everything about the world. He can answer all your questions.
+
+### Lily Stark
+
+A burtish woman who can tell you everything about the monsters she slayed.
+
+### Willhelm Fennick
+
+An old detective who's too old for everything.
+
+### Mary Daniels
+
+A loving housewife and caring mother who can tell you everything about the good in the world.
+
+### King Arthur
+
+The legendary king of Camelot. He can tell you everything about the world.

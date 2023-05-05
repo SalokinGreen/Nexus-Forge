@@ -1,0 +1,191 @@
+.chatContainer {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 300px;
+    background-color: #000000;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: #187122 1px solid;
+    max-height: 500px;
+    box-sizing: border-box; 
+  }
+ 
+  
+  .chatHeader {
+    position: relative; 
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #187122;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    border-bottom: #000000 2px solid;
+  }
+  
+  .aiAvatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  
+  .aiName {
+    font-size: 18;
+}
+  
+  .chatBody {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .message {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    max-width: 70%;
+  }
+  
+  .aiMessage {
+    background-color: #187122;
+    color: white;
+    align-self: flex-start;
+  }
+  
+  .userMessage {
+    background-color: white;
+    color: black;
+    align-self: flex-end;
+    /* position message to the right of the chat box*/
+    margin-left: auto;
+
+  }
+  
+  .chatInputContainer {
+    padding: 10px;
+    display: flex;
+  }
+  
+  .chatInput {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #000000;
+    
+  }
+  /* send button */
+  .chatSendButton {
+    background-color: #187122;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  /* Dropdown menu */
+  .aiDropdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #187122;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 8px;
+    z-index: 2;
+    min-width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .aiDropdownItem {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: #000000 1px solid;
+    border-radius: 5px;
+  }
+  
+  .aiDropdownItem:hover {
+    background-color: #000000;
+  }
+  
+  .aiDropdownAvatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .aiDropdown span {
+    font-size: 14px;
+    color: white;
+  }
+  .messageWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .aiMessageWrapper {
+    justify-content: flex-start;
+  }
+  
+  .userMessageWrapper {
+    justify-content: flex-end;
+  }
+  
+  .messageButtons {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  
+   .editButton {
+    background-color: #187122;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    color: white;
+  }
+  .deleteButton {
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    color: white;
+  }
+  
+  .deleteButton:hover,
+  .editButton:hover {
+    text-decoration: underline;
+  }
+  .cancelEditingButton {
+    background-color: #187122;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  @media (max-width: 768px) {
+    .chatContainer {
+      max-height: 300px;
+    }
+  }
