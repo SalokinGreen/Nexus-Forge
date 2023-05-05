@@ -1,0 +1,66 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #000000;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .optionsButton {
+    background-color: #187122;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    outline: none;
+    margin-right: 10px;
+  }
+  
+  .menuItem {
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .menuItem:hover {
+    background-color: #187122;
+  }
+  
+  .logoutButton {
+    background-color: #980000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .optionsContainer {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background-color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 150px;
+    z-index: 1;
+  }

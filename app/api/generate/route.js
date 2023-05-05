@@ -421,8 +421,6 @@ const parameters = {
 };
 // Generating Content
 export async function POST(request) {
-  // get nai key from env
-  const naiKey = process.env.NAI_KEY;
   // get the request body
   const req = await request.json();
   // build the context
@@ -446,7 +444,7 @@ export async function POST(request) {
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
-          authorization: `Bearer ${naiKey}`,
+          authorization: `Bearer ${req.key}`,
         },
       }
     )

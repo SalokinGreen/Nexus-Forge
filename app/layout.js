@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Nexus-Forge",
-  description: "A place to forge and share your worlds to others.",
+  description: "A place to forge and share your worlds.",
 };
 
 export default function RootLayout({ children }) {

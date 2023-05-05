@@ -10,6 +10,7 @@ import Image from "next/image";
 import axios from "axios";
 import remarkGfm from "remark-gfm";
 import Navbar from "../components/Navbar";
+import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 // icons
 import {
   AiFillDelete,
@@ -363,6 +364,7 @@ function Write() {
         extra: "",
         type: "krake",
         title,
+        key: localStorage.getItem("nai_access_key"),
       })
       .catch((err) => {
         console.log(err);
@@ -376,7 +378,7 @@ function Write() {
   }
   return (
     <div className={styles.container}>
-      <Navbar />
+      <DashboardNavbar />
       <h1>Title</h1>
       <form onSubmit={handleSubmit}>
         <input

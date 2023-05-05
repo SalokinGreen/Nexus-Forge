@@ -5,6 +5,5 @@ export default async function getNaiAccessToken(email, password, id) {
     email,
     password,
   });
-  console.log(response);
   return response.data.data;
 }

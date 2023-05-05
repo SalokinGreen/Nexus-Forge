@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import styles from "../../../Styles/Settings.module.css";
 
-const Settings = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
-
+const Settings = ({ toggleModal, modalVisible }) => {
   return (
     <div className={styles.container}>
-      <button className={styles.settingsButton} onClick={toggleModal}>
+      <p className={styles.a} onClick={toggleModal}>
         Settings
-      </button>
+      </p>
       {modalVisible && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>

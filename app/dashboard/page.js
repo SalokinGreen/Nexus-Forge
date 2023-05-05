@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import supabase from "../lib/supabase";
 import withAuth from "../lib/withAuth";
 import Settings from "../components/Dashboard/Settings";
+import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 function Dashboard() {
   const [articles, setArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -59,13 +60,7 @@ function Dashboard() {
   }
   return (
     <div className={styles.dashboard}>
-      <nav className={styles.navbar}>
-        <div className={styles.logo}>Dashboard</div>
-        <Settings />
-        <button className={styles.logoutButton} onClick={handleLogout}>
-          Logout
-        </button>
-      </nav>
+      <DashboardNavbar />
       <div className={styles.filters}>
         <input
           type="text"
