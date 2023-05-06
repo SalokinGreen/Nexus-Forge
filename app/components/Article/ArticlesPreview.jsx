@@ -2,10 +2,12 @@ import React from "react";
 import styles from "../../../Styles/Article.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 const ArticlePreview = ({ title, content, id, images }) => {
-  console.log("images:", images);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const articleId = searchParams.get("id");
+  console.log("images:", images);
   let image = false;
   if (typeof images === "object" && images.length > 0) {
     image = true;
@@ -19,11 +21,9 @@ const ArticlePreview = ({ title, content, id, images }) => {
       {image && (
         <Image
           src={images[0]}
-          alt="Image 1"
-          layout="responsive"
-          objectFit="contain"
-          width={1}
-          height={1}
+          alt="Image of article"
+          height={133}
+          width={200}
           className={styles.image}
         />
       )}

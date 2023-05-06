@@ -17,6 +17,7 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [x] Dashboard
 - [x] Get NovelAI access key
 - [x] AI assistant
+- [x] Hosting instructions
 - [ ] Create, edit, and delete category
 - [ ] Search
 - [ ] Writer management
@@ -25,7 +26,6 @@ Optional, but significant, you can use AI to be your assistant. With the powerfu
 - [ ] AI settings
 - [ ] Private entries
 - [ ] Complete navbar
-- [ ] Hosting instructions
 - [ ] Generated writing prompts
 
 # Hosting

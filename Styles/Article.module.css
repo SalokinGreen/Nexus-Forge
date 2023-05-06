@@ -3,17 +3,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
+  /* background-color: #000000; */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 200px;
-  height: 250px;
+  height: 133px;
   cursor: pointer;
   border-radius: 5px;
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
   opacity: 0.8;
-  /* border:rgb(255, 255, 255) solid 1px; */
+  /* border: rgb(255, 255, 255) solid 1px; */
+  padding-top: 3rem;
 }
 
 .article:hover {
@@ -24,6 +25,8 @@
 
 .image {
   border-radius: 5px;
+  max-height: 133;
+  object-fit: cover;
 }
 
 .article h3 {
@@ -31,5 +34,4 @@
   font-weight: bold;
   text-align: center;
   color: rgb(255, 255, 255);
-
 }

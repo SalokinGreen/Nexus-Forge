@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../../../Styles/Chat.module.css";
 import axios from "axios";
 import Image from "next/image";
 import { AiFillDelete, AiFillEdit, AiOutlineSend } from "react-icons/ai";
-import { MdCancel } from "react-icons/md";
+import { MdCancel, MdReplay } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
+import Draggable from "react-draggable";
 const Chat = ({ chat, setChat }) => {
   const [selectedAI, setSelectedAI] = useState("masterWong");
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -14,11 +15,18 @@ const Chat = ({ chat, setChat }) => {
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editingMessageContent, setEditingMessageContent] = useState("");
   const [chatOff, setChatOff] = useState(false);
+  const bottomRef = useRef(null);
   const handleAIChange = (key) => {
     setSelectedAI(key);
     setDropdownVisible(false);
   };
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat, generating]);
 
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   const toggleDropdown = () => {
     setDropdownVisible((prevState) => !prevState);
   };
@@ -131,119 +139,153 @@ const Chat = ({ chat, setChat }) => {
     }
     setGenerating(false);
   };
+  const retry = () => {
+    // Delete last message and generate
+    setChat((prevChat) => {
+      const updatedChat = { ...prevChat };
+      updatedChat[selectedAI].messages.pop();
+      return updatedChat;
+    });
+    handleGenerateResponse();
+  };
   if (chatOff) {
     return null;
   } else {
     return (
-      <div className={styles.chatContainer}>
-        <div className={styles.chatHeader} onClick={toggleChat}>
-          <img
-            src={chat[selectedAI].avatar}
-            alt="AI avatar"
-            className={styles.aiAvatar}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleDropdown();
-            }}
-          />
-          <span className={styles.aiName}>{chat[selectedAI].name}</span>
-        </div>
-        {dropdownVisible && (
-          <div className={styles.aiDropdown}>
-            {Object.keys(chat).map((key) => (
-              <div
-                key={key}
-                className={styles.aiDropdownItem}
-                onClick={() => handleAIChange(key)}
+      <Draggable handle=".handle">
+        <div className={styles.chatContainer}>
+          <div className={styles.chatHeader}>
+            <img
+              src={chat[selectedAI].avatar}
+              alt="AI avatar"
+              className={styles.aiAvatar}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleDropdown();
+              }}
+            />
+            <span className={`${styles.aiName} handle`}>
+              {chat[selectedAI].name}
+            </span>
+            <div className={styles.headerButtons}>
+              <button className={styles.collapseButton} onClick={toggleChat}>
+                COL
+              </button>
+              <button
+                className={styles.closeButton}
+                onClick={() => setChatOff(truex)}
               >
-                <img
-                  src={chat[key].avatar}
-                  alt="AI avatar"
-                  className={styles.aiDropdownAvatar}
-                />
-                <span>{chat[key].name}</span>
-              </div>
-            ))}
+                X
+              </button>
+            </div>
           </div>
-        )}
-        {chatExpanded && (
-          <>
-            <div className={styles.chatBody}>
-              {chat[selectedAI].messages.map((message) => (
+          {dropdownVisible && (
+            <div className={styles.aiDropdown}>
+              {Object.keys(chat).map((key) => (
                 <div
-                  key={message.id}
-                  className={`${styles.messageWrapper} ${
-                    styles[
-                      message.from === "AI"
-                        ? "aiMessageWrapper"
-                        : "userMessageWrapper"
-                    ]
-                  }`}
+                  key={key}
+                  className={styles.aiDropdownItem}
+                  onClick={() => handleAIChange(key)}
                 >
+                  <img
+                    src={chat[key].avatar}
+                    alt="AI avatar"
+                    className={styles.aiDropdownAvatar}
+                  />
+                  <span>{chat[key].name}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {chatExpanded && (
+            <>
+              <div className={styles.chatBody}>
+                {chat[selectedAI].messages.map((message) => (
                   <div
-                    className={`${styles.message} ${
+                    key={message.id}
+                    className={`${styles.messageWrapper} ${
                       styles[
-                        message.from === "AI" ? "aiMessage" : "userMessage"
+                        message.from === "AI"
+                          ? "aiMessageWrapper"
+                          : "userMessageWrapper"
                       ]
                     }`}
                   >
-                    {message.content}
-                  </div>
-                  <div className={styles.messageButtons}>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => deleteMessage(message.id)}
+                    <div
+                      className={`${styles.message} ${
+                        styles[
+                          message.from === "AI" ? "aiMessage" : "userMessage"
+                        ]
+                      }`}
                     >
-                      <AiFillDelete size={"1.2rem"} />
-                    </button>
-                    <button
-                      className={styles.editButton}
-                      onClick={() => editMessage(message.id)}
-                    >
-                      <AiFillEdit size={"1.2rem"} />
-                    </button>
+                      {message.content}
+                    </div>
+                    <div className={styles.messageButtons}>
+                      <button
+                        className={styles.deleteButton}
+                        onClick={() => deleteMessage(message.id)}
+                      >
+                        <AiFillDelete size={"1.2rem"} />
+                      </button>
+                      <button
+                        className={styles.editButton}
+                        onClick={() => editMessage(message.id)}
+                      >
+                        <AiFillEdit size={"1.2rem"} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
-              {generating && (
-                <div className={styles.loading}>
-                  <Image
-                    src="/typing.gif"
-                    width={65}
-                    height={25}
-                    alt="loading gif"
-                  />
-                </div>
-              )}
-            </div>
-            <div className={styles.chatInputContainer}>
-              <input
-                type="text"
-                className={styles.chatInput}
-                placeholder="Type your message..."
-                value={editingMessageId ? editingMessageContent : message}
-                onChange={handleWriting}
-                onKeyPress={handleKeyPress}
-              />
-              <button
-                className={styles.chatSendButton}
-                onClick={editingMessageId ? updateMessage : sendMessage}
-              >
-                {editingMessageId ? <GrUpdate /> : <AiOutlineSend />}
-              </button>
-              {editingMessageId && (
+                {generating && (
+                  <div className={styles.loading}>
+                    <Image
+                      src="/typing.gif"
+                      width={65}
+                      height={25}
+                      alt="loading gif"
+                    />
+                  </div>
+                )}
+                <div ref={bottomRef}></div>
+              </div>
+              <div className={styles.chatInputContainer}>
+                <input
+                  type="text"
+                  className={styles.chatInput}
+                  placeholder="Type your message..."
+                  value={editingMessageId ? editingMessageContent : message}
+                  onChange={handleWriting}
+                  onKeyPress={handleKeyPress}
+                />
+
+                {!editingMessageId && (
+                  <button
+                    className={styles.cancelEditingButton}
+                    onClick={retry}
+                  >
+                    <MdReplay size={"1.5rem"} />
+                  </button>
+                )}
                 <button
-                  className={styles.cancelEditingButton}
-                  onClick={cancelEditing}
+                  className={styles.chatSendButton}
+                  onClick={editingMessageId ? updateMessage : sendMessage}
                 >
-                  <MdCancel size={"1rem"} />
+                  {editingMessageId ? <GrUpdate /> : <AiOutlineSend />}
                 </button>
-              )}
-            </div>
-          </>
-        )}
-      </div>
+                {editingMessageId && (
+                  <button
+                    className={styles.cancelEditingButton}
+                    onClick={cancelEditing}
+                  >
+                    <MdCancel size={"1rem"} />
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      </Draggable>
     );
   }
 };

@@ -44,15 +44,28 @@ export default function Home() {
     <div className={styles.container}>
       <Navbar />
       <Head>
-        <title>World-Building App</title>
-        <meta name="description" content="Welcome to the World-Building App" />
+        <title>
+          {process.env.WORLD_TITLE ? process.env.WORLD_TITLE : "Nexus-Forge"}
+        </title>
+        <meta
+          name="description"
+          content={
+            process.env.WORLD_DESC
+              ? process.env.WORLD_DESC
+              : "A place to forge and share your worlds."
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to the Nexus-Forge</h1>
+        <h1 className={styles.title}>
+          {process.env.WORLD_TITLE ? process.env.WORLD_TITLE : "Nexus-Forge"}
+        </h1>
         <p className={styles.description}>
-          Explore, create, and share your own worlds and stories!
+          {process.env.WORLD_DESC
+            ? process.env.WORLD_DESC
+            : "Explore, create, and share your own worlds and stories!"}
         </p>
         {!loading && (
           <>
