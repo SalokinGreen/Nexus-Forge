@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import styles from "../../../Styles/Chat.module.css";
 import axios from "axios";
+import Image from "next/image";
+import { AiFillDelete, AiFillEdit, AiOutlineSend } from "react-icons/ai";
+import { MdCancel } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
 const Chat = ({ chat, setChat }) => {
   const [selectedAI, setSelectedAI] = useState("masterWong");
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [chatExpanded, setChatExpanded] = useState(true);
   const [message, setMessage] = useState("");
+  const [generating, setGenerating] = useState(false);
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editingMessageContent, setEditingMessageContent] = useState("");
+  const [chatOff, setChatOff] = useState(false);
   const handleAIChange = (key) => {
     setSelectedAI(key);
     setDropdownVisible(false);
@@ -102,6 +108,8 @@ const Chat = ({ chat, setChat }) => {
     }
   };
   const handleGenerateResponse = async () => {
+    if (generating) return;
+    setGenerating(true);
     const response = await axios
       .post("/api/chat", {
         chat: chat[selectedAI],
@@ -117,109 +125,127 @@ const Chat = ({ chat, setChat }) => {
           content: response.data,
           from: "AI",
         });
+        setGenerating(false);
         return updatedChat;
       });
     }
+    setGenerating(false);
   };
-
-  return (
-    <div className={styles.chatContainer}>
-      <div className={styles.chatHeader} onClick={toggleChat}>
-        <img
-          src={chat[selectedAI].avatar}
-          alt="AI avatar"
-          className={styles.aiAvatar}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleDropdown();
-          }}
-        />
-        <span className={styles.aiName}>{chat[selectedAI].name}</span>
-      </div>
-      {dropdownVisible && (
-        <div className={styles.aiDropdown}>
-          {Object.keys(chat).map((key) => (
-            <div
-              key={key}
-              className={styles.aiDropdownItem}
-              onClick={() => handleAIChange(key)}
-            >
-              <img
-                src={chat[key].avatar}
-                alt="AI avatar"
-                className={styles.aiDropdownAvatar}
-              />
-              <span>{chat[key].name}</span>
-            </div>
-          ))}
+  if (chatOff) {
+    return null;
+  } else {
+    return (
+      <div className={styles.chatContainer}>
+        <div className={styles.chatHeader} onClick={toggleChat}>
+          <img
+            src={chat[selectedAI].avatar}
+            alt="AI avatar"
+            className={styles.aiAvatar}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleDropdown();
+            }}
+          />
+          <span className={styles.aiName}>{chat[selectedAI].name}</span>
         </div>
-      )}
-      {chatExpanded && (
-        <>
-          <div className={styles.chatBody}>
-            {chat[selectedAI].messages.map((message) => (
+        {dropdownVisible && (
+          <div className={styles.aiDropdown}>
+            {Object.keys(chat).map((key) => (
               <div
-                key={message.id}
-                className={`${styles.messageWrapper} ${
-                  styles[
-                    message.from === "AI"
-                      ? "aiMessageWrapper"
-                      : "userMessageWrapper"
-                  ]
-                }`}
+                key={key}
+                className={styles.aiDropdownItem}
+                onClick={() => handleAIChange(key)}
               >
-                <div
-                  className={`${styles.message} ${
-                    styles[message.from === "AI" ? "aiMessage" : "userMessage"]
-                  }`}
-                >
-                  {message.content}
-                </div>
-                <div className={styles.messageButtons}>
-                  <button
-                    className={styles.deleteButton}
-                    onClick={() => deleteMessage(message.id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className={styles.editButton}
-                    onClick={() => editMessage(message.id)}
-                  >
-                    Edit
-                  </button>
-                </div>
+                <img
+                  src={chat[key].avatar}
+                  alt="AI avatar"
+                  className={styles.aiDropdownAvatar}
+                />
+                <span>{chat[key].name}</span>
               </div>
             ))}
           </div>
-          <div className={styles.chatInputContainer}>
-            <input
-              type="text"
-              className={styles.chatInput}
-              placeholder="Type your message..."
-              value={editingMessageId ? editingMessageContent : message}
-              onChange={handleWriting}
-              onKeyPress={handleKeyPress}
-            />
-            <button
-              className={styles.chatSendButton}
-              onClick={editingMessageId ? updateMessage : sendMessage}
-            >
-              {editingMessageId ? "Update" : "Send"}
-            </button>
-            {editingMessageId && (
+        )}
+        {chatExpanded && (
+          <>
+            <div className={styles.chatBody}>
+              {chat[selectedAI].messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`${styles.messageWrapper} ${
+                    styles[
+                      message.from === "AI"
+                        ? "aiMessageWrapper"
+                        : "userMessageWrapper"
+                    ]
+                  }`}
+                >
+                  <div
+                    className={`${styles.message} ${
+                      styles[
+                        message.from === "AI" ? "aiMessage" : "userMessage"
+                      ]
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                  <div className={styles.messageButtons}>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => deleteMessage(message.id)}
+                    >
+                      <AiFillDelete size={"1.2rem"} />
+                    </button>
+                    <button
+                      className={styles.editButton}
+                      onClick={() => editMessage(message.id)}
+                    >
+                      <AiFillEdit size={"1.2rem"} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+
+              {generating && (
+                <div className={styles.loading}>
+                  <Image
+                    src="/typing.gif"
+                    width={65}
+                    height={25}
+                    alt="loading gif"
+                  />
+                </div>
+              )}
+            </div>
+            <div className={styles.chatInputContainer}>
+              <input
+                type="text"
+                className={styles.chatInput}
+                placeholder="Type your message..."
+                value={editingMessageId ? editingMessageContent : message}
+                onChange={handleWriting}
+                onKeyPress={handleKeyPress}
+              />
               <button
-                className={styles.cancelEditingButton}
-                onClick={cancelEditing}
+                className={styles.chatSendButton}
+                onClick={editingMessageId ? updateMessage : sendMessage}
               >
-                Cancel
+                {editingMessageId ? <GrUpdate /> : <AiOutlineSend />}
               </button>
-            )}
-          </div>
-        </>
-      )}
-    </div>
-  );
+              {editingMessageId && (
+                <button
+                  className={styles.cancelEditingButton}
+                  onClick={cancelEditing}
+                >
+                  <MdCancel size={"1rem"} />
+                </button>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Chat;

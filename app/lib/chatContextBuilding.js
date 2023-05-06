@@ -4,7 +4,7 @@ import TokenizerService from "@/utils/tokenizers/gptTokenizer";
 export default function ChatContextBuilding(chat, ai) {
   const reverseChat = chat.messages.slice().reverse();
   let context = "";
-  let tokens = 0;
+  let tokens = 1;
 
   if (ai === "krake-v2") {
     tokens += PileTokenizer.encode(chat.info).length;
@@ -47,5 +47,5 @@ export default function ChatContextBuilding(chat, ai) {
       }
     }
   });
-  return chat.info + context + `> ${chat.name}:`;
+  return chat.info + "\n" + context + `> ${chat.name}:`;
 }

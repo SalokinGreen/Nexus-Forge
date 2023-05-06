@@ -7,6 +7,7 @@ import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 import { useSupabase } from "../supabase-provider";
 import { ImHammer2 } from "react-icons/im";
 import LoginPage from "../components/LoginPage";
+import SignUpForm from "../components/Dashboard/SignUp";
 function Dashboard() {
   const [articles, setArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

@@ -46,6 +46,57 @@ Here will be the instructions how to set up the app on [Supabase](https://supaba
    NEXT_PUBLIC_SUPABASE_ANON_KEY = your supabase anon key
 4. Enjoy
 
+### Supabase
+
+1. Create a new project
+2. Use your supabase url and anon key in the environment variables
+3. Go to the table editor
+4. Create a new table called "articles" with following settings:
+
+- id: default
+- created_at: default
+- contet: text
+- title: text
+- type: text
+- author: text
+- memory: text
+- images: json, as array enabled
+- keywords: text, as array enabled
+- form: json, as array enabled
+- chat: json, as array enabled
+- public: boolean, default true
+- favorite: boolean, default false
+
+5. View its policies and create new policies with following settings:
+
+- select: allowed operation (select), target roles (none), using expression (true), with check expression (true). _This should exist as default, but make sure it's there._
+- all: allowed operation (all), target roles (authenticated), using expression (true), with check expression (true)
+
+6. Create a new table called "invites" with following settings:
+
+- id: default
+- created_at: default
+- code: text
+- is_used: boolean, default false
+
+7. View its policies and create new policies with following settings:
+
+- select: allowed operation (select), target roles (none), using expression (true), with check expression (true). _This should exist as default, but make sure it's there._
+- all: allowed operation (all), target roles (authenticated), using expression (true), with check expression (true)
+
+8. Create a new **public** bucket in the storage called "images"
+9. Edit the bucket and create a new policies with following settings:
+
+- select: target roles(none), using expression ((bucket_id = 'images'::text))
+- insert: target roles(authenticated), using expression ((bucket_id = 'images'::text))
+- update: target roles(authenticated), using expression ((bucket_id = 'images'::text))
+- delete: target roles(authenticated), using expression ((bucket_id = 'images'::text))
+
+10. Go to the authentication tab and add user "create new user". You will have to create your own account like that, further accounts can be created naturally.
+11. Enjoy
+
+\*_Note: Things might change during the project, and you might have to change the database structure. I will try to keep this up to date._
+
 # AI
 
 Need help world-building? You can use AI to help you. With the powerful AI models from [NovelAI](https://www.novelai.net), you can generate your entry with AI. You can also use the AI to help you write your entry. You can also use the AI to generate writing prompts. And you can chat with the AI to help you with your world-building.

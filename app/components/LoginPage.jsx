@@ -6,12 +6,13 @@ import styles from "../../Styles/Login.module.css";
 import Navbar from "./Navbar";
 import { useSupabase } from "../supabase-provider";
 import { createClient } from "@supabase/supabase-js";
-
+import SignUpForm from "./Dashboard/SignUp";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [register, setRegister] = useState(false);
   const router = useRouter();
   const { supabase } = useSupabase();
 
@@ -32,13 +33,15 @@ export default function LoginPage() {
       setError("error:", error.message);
     }
   }
-
+  if (register) {
+    return <SignUpForm setRegister={setRegister}/>;
+  } else {
   return (
     <React.Fragment>
       <Navbar />
       <div className={styles.container}>
         <div className={styles.form}>
-          <h1 className={styles.title}>Login</h1>
+          <h1 className={styles.title} onClick={() => setRegister(!register)}>Login</h1>
           <form onSubmit={handleSubmit}>
             <input
               type="email"
@@ -62,5 +65,5 @@ export default function LoginPage() {
         </div>
       </div>
     </React.Fragment>
-  );
+  );}
 }

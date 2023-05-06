@@ -57,6 +57,12 @@
     color: white;
     align-self: flex-start;
   }
+  .loading {
+    background-color: #000000;
+    color: white;
+    align-self: flex-start;
+    width: fit-content;
+  }
   
   .userMessage {
     background-color: white;
