@@ -1,0 +1,129 @@
+.ai-parameters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.input-group input {
+  background-color: #000000;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.list-item.editing {
+  cursor: initial;
+}
+
+.order-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+}
+
+.order-item {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #000000;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: grab;
+}
+
+.order-item:active {
+  cursor: grabbing;
+}
+.ai-parameters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-weight: bold;
+}
+
+.whitelist-container,
+.stop-sequence-container,
+.bad-words-container,
+.bias-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.whitelist-container input,
+.stop-sequence-container input,
+.bad-words-container input,
+.bias-container input {
+  flex-grow: 1;
+}
+
+.whitelist-items,
+.stop-sequence-items,
+.bad-words-items,
+.bias-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.whitelist-item,
+.stop-sequence-item,
+.bad-words-item,
+.bias-item {
+  background-color: #000000;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.whitelist-item button,
+.stop-sequence-item button,
+.bad-words-item button,
+.bias-item button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+.ai-parameters h1 {
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  /* font put in center  */
+  text-align: center;
+}
+
+.ai-parameters h1:hover {
+  color: #0070f3;
+}
+
+.input-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none;
+}

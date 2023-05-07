@@ -183,7 +183,7 @@ const Chat = ({ chat, setChat }) => {
               </button>
               <button
                 className={styles.closeButton}
-                onClick={() => setChatOff(truex)}
+                onClick={() => setChatOff(true)}
               >
                 X
               </button>

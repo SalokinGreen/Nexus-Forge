@@ -11,6 +11,7 @@ import axios from "axios";
 import remarkGfm from "remark-gfm";
 import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 import Chat from "../components/Dashboard/Chat";
+import AIParameters from "../components/Write/AIParameters";
 // icons
 import {
   AiFillDelete,
@@ -716,6 +717,7 @@ function Write() {
           </div>
         )}
         <Chat chat={chat} setChat={setChat} />
+        <AIParameters />
         <Snackbar
           open={openSave}
           autoHideDuration={6000}

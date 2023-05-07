@@ -3,12 +3,28 @@ import Link from "next/link";
 import styles from "../../Styles/Navbar.module.css";
 import { useRouter } from "next/navigation";
 import ArticlePreview from "./Article/ArticlesPreview";
+import { useSupabase } from "../supabase-provider";
 
-const Navbar = ({ articles }) => {
+const Navbar = () => {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const searchContainer = useRef(null);
+  // fetch articles from database
+  const { supabase } = useSupabase();
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data, error } = await supabase.from("articles").select("*");
+      if (error) {
+        console.log(error);
+      } else {
+        setArticles(data);
+      }
+    };
+    fetchArticles();
+  }, []);
 
   // handle click on links
   const handleClick = (address) => {
@@ -71,7 +87,7 @@ const Navbar = ({ articles }) => {
           Home
         </p>
       </div>
-      <div className={styles.center}>
+      <div className={styles.right}>
         <input
           type="text"
           placeholder="Search"
@@ -94,11 +110,11 @@ const Navbar = ({ articles }) => {
           </div>
         )}
       </div>
-      <div className={styles.right}>
+      {/* <div className={styles.right}>
         <p className={styles.navLink} onClick={() => handleClick("/dashboard")}>
           Dashboard
         </p>
-      </div>
+      </div> */}
     </nav>
   );
 };
