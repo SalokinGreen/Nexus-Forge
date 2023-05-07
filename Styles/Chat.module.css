@@ -221,7 +221,7 @@
   color: #ffffff;
 }
 @media (max-width: 768px) {
-  .chatContainer {
+  /* .chatContainer {
     max-height: 300px;
-  }
+  } */
 }

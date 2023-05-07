@@ -7,7 +7,7 @@ import DashboardNavbar from "../components/Dashboard/DashboardNavbar";
 import { useSupabase } from "../supabase-provider";
 import { ImHammer2 } from "react-icons/im";
 import LoginPage from "../components/LoginPage";
-import SignUpForm from "../components/Dashboard/SignUp";
+import ArticlePreview from "../components/Article/ArticlesPreview";
 function Dashboard() {
   const [articles, setArticles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,6 +15,20 @@ function Dashboard() {
   const router = useRouter();
   const { supabase } = useSupabase();
   const [session, setSession] = useState(null);
+  const types = [
+    "Character",
+    "Race",
+    "Location",
+    "Event",
+    "Item",
+    "Laws of Nature",
+    "Magic",
+    "Organization",
+    "Religion",
+    "Technology",
+    "Tradition",
+    "Other",
+  ];
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -91,23 +105,17 @@ function Dashboard() {
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
           >
-            <option value="">All types</option>
-            <option value="character">Character</option>
-            <option value="type2">Type 2</option>
+            <option value="">All</option>
+            {types.map((type) => (
+              <option value={type.toLowerCase()} key={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
         <div className={styles.articles}>
           {filteredArticles.map((article) => (
-            <div
-              key={article.id}
-              className={styles.article}
-              onClick={() => handleOpenArticle(article.id)}
-            >
-              <h2 className={styles.articleTitle}>{article.title}</h2>
-              <p className={styles.articleDate}>
-                Date: {formattedDate(article.created_at)}
-              </p>
-            </div>
+            <ArticlePreview {...article} key={article.id} />
           ))}
         </div>
         <button

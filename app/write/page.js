@@ -41,7 +41,20 @@ function Write() {
   const articleId = searchParams.get("id");
   const template = searchParams.get("template");
   const [showPreview, setShowPreview] = useState(false);
-  const availableTypes = ["character", "location", "item"];
+  const availableTypes = [
+    "Character",
+    "Race",
+    "Location",
+    "Event",
+    "Item",
+    "Laws of Nature",
+    "Magic",
+    "Organization",
+    "Religion",
+    "Technology",
+    "Tradition",
+    "Other",
+  ];
   const [uploadedImage, setUploadedImage] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [toDelete, setToDelete] = useState([]);
@@ -555,7 +568,7 @@ function Write() {
                 onChange={(e) => setType(e.target.value)}
               >
                 {availableTypes.map((typeOption) => (
-                  <option key={typeOption} value={typeOption}>
+                  <option key={typeOption} value={typeOption.toLowerCase()}>
                     {typeOption}
                   </option>
                 ))}

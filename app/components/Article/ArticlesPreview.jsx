@@ -1,20 +1,22 @@
 import React from "react";
 import styles from "../../../Styles/Article.module.css";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+
+import { useRouter, usePathname } from "next/navigation";
 const ArticlePreview = ({ title, content, id, images }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const articleId = searchParams.get("id");
-  console.log("images:", images);
+  const pathname = usePathname();
   let image = false;
   if (typeof images === "object" && images.length > 0) {
     image = true;
   }
-  //on click go to article page
+  //on click go to article page if on "/" or "/article", and go to write page if on "/write" or "dashboard"
   const handleClick = () => {
-    router.push(`/article?id=${id}`);
+    if (pathname === "/write" || pathname === "/dashboard") {
+      router.push(`/write?id=${id}`);
+    } else {
+      router.push(`/article?id=${id}`);
+    }
   };
   return (
     <div className={styles.article} onClick={handleClick}>

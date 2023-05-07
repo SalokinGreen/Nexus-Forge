@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AiFillDelete, AiFillEdit, AiOutlineSend } from "react-icons/ai";
 import { MdCancel, MdReplay } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
+import { Avatar } from "@mui/material";
 import Draggable from "react-draggable";
 const Chat = ({ chat, setChat }) => {
   const [selectedAI, setSelectedAI] = useState("masterWong");
@@ -155,7 +156,7 @@ const Chat = ({ chat, setChat }) => {
       <Draggable handle=".handle">
         <div className={styles.chatContainer}>
           <div className={styles.chatHeader}>
-            <img
+            {/* <img
               src={chat[selectedAI].avatar}
               alt="AI avatar"
               className={styles.aiAvatar}
@@ -163,6 +164,15 @@ const Chat = ({ chat, setChat }) => {
                 e.stopPropagation();
                 toggleDropdown();
               }}
+            /> */}
+            <Avatar
+              className={styles.aiAvatar}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleDropdown();
+              }}
+              src={chat[selectedAI].avatar}
+              alt="AI Avatar"
             />
             <span className={`${styles.aiName} handle`}>
               {chat[selectedAI].name}
