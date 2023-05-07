@@ -42,17 +42,23 @@ function Write() {
   const template = searchParams.get("template");
   const [showPreview, setShowPreview] = useState(false);
   const availableTypes = [
-    "Character",
-    "Race",
-    "Location",
-    "Event",
-    "Item",
-    "Laws of Nature",
+    "People",
+    "Races",
+    "Locations",
+    "Events",
+    "Items",
+    "Laws of the World",
     "Magic",
-    "Organization",
-    "Religion",
-    "Technology",
-    "Tradition",
+    "Organizations",
+    "Religions",
+    "Technologies",
+    "Traditions",
+    "Politics",
+    "Creatures",
+    "Flora",
+    "Geography",
+    "History",
+    "Structure",
     "Other",
   ];
   const [uploadedImage, setUploadedImage] = useState([]);
@@ -560,7 +566,7 @@ function Write() {
           />
           <div className={styles.fieldsRow}>
             <div>
-              <h1>Type</h1>
+              <h1>Category</h1>
 
               <select
                 className={styles.selectField}

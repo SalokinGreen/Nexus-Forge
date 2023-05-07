@@ -16,17 +16,23 @@ function Dashboard() {
   const { supabase } = useSupabase();
   const [session, setSession] = useState(null);
   const types = [
-    "Character",
-    "Race",
-    "Location",
-    "Event",
-    "Item",
-    "Laws of Nature",
+    "People",
+    "Races",
+    "Locations",
+    "Events",
+    "Items",
+    "Laws of the World",
     "Magic",
-    "Organization",
-    "Religion",
-    "Technology",
-    "Tradition",
+    "Organizations",
+    "Religions",
+    "Technologies",
+    "Traditions",
+    "Politics",
+    "Creatures",
+    "Flora",
+    "Geography",
+    "History",
+    "Structure",
     "Other",
   ];
 

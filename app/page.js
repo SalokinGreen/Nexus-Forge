@@ -8,13 +8,73 @@ import { useState, useEffect } from "react";
 // import supabase from "./lib/supabase";
 import Navbar from "./components/Navbar";
 import { useSupabase } from "./supabase-provider";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Home() {
   const [favoriteArticles, setFavoriteArticles] = useState([]);
   const [newArticles, setNewArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const { supabase } = useSupabase();
-
+  const categories = [
+    "People",
+    "Races",
+    "Locations",
+    "Events",
+    "Items",
+    "Laws of the World",
+    "Magic",
+    "Organizations",
+    "Religions",
+    "Technologies",
+    "Traditions",
+    "Politics",
+    "Creatures",
+    "Flora",
+    "Geography",
+    "History",
+    "Structure",
+    "Other",
+  ];
+  const cs = {
+    infinite: false,
+    arrows: true,
+    slidesToShow: 6,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 3,
+          infinite: false,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 800,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 550,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   useEffect(() => {
     async function fetchArticles() {
       const { data: favoriteArticles } = await supabase
@@ -39,7 +99,19 @@ export default function Home() {
   if (loading) {
     return <div>Loading...</div>;
   }
+  const groupedArticles = newArticles.reduce((acc, article) => {
+    if (!acc[article.type]) {
+      acc[article.type] = [];
+    }
+    acc[article.type].push(article);
+    return acc;
+  }, {});
 
+  const categoriesWithArticles = categories.filter(
+    (category) =>
+      groupedArticles[category.toLowerCase()] &&
+      groupedArticles[category.toLowerCase()].length
+  );
   return (
     <div className={styles.container}>
       <Navbar />
@@ -70,8 +142,8 @@ export default function Home() {
         {!loading && (
           <>
             <section className={styles.articlesSection}>
-              <h2>Favorite Articles</h2>
-              <div className={styles.articles}>
+              <h2>Favorite</h2>
+              <Slider {...cs}>
                 {favoriteArticles.map((article) => (
                   <ArticlePreview
                     key={article.id}
@@ -81,12 +153,12 @@ export default function Home() {
                     images={article.images}
                   />
                 ))}
-              </div>
+              </Slider>
             </section>
 
             <section className={styles.articlesSection}>
-              <h2>New Articles</h2>
-              <div className={styles.articles}>
+              <h2>New</h2>
+              <Slider {...cs}>
                 {newArticles.map((article) => (
                   <ArticlePreview
                     key={article.id}
@@ -96,8 +168,24 @@ export default function Home() {
                     images={article.images}
                   />
                 ))}
-              </div>
+              </Slider>
             </section>
+            {categoriesWithArticles.map((category) => (
+              <section className={styles.articlesSection} key={category}>
+                <h2>{category}</h2>
+                <Slider {...cs}>
+                  {groupedArticles[category.toLowerCase()].map((article) => (
+                    <ArticlePreview
+                      key={article.id}
+                      id={article.id}
+                      title={article.title}
+                      content={article.content}
+                      images={article.images}
+                    />
+                  ))}
+                </Slider>
+              </section>
+            ))}
           </>
         )}
       </main>
