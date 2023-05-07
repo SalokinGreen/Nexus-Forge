@@ -114,7 +114,7 @@ export default function Home() {
   );
   return (
     <div className={styles.container}>
-      <Navbar />
+      <Navbar articles={[...favoriteArticles, ...newArticles]} />
       <Head>
         <title>
           {process.env.WORLD_TITLE ? process.env.WORLD_TITLE : "Nexus-Forge"}
